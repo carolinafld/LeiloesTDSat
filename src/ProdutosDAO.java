@@ -63,8 +63,23 @@ public class ProdutosDAO {
             System.out.println("Erro ao buscar lista de produtos: " + e.getMessage());
             return null;
         }
+    }
+    
+    public void venderProduto(int id) {
+        conn = new conectaDAO().connectDB();
         
-
+        String sql = "UPDATE produtos SET status = ? WHERE id = ?";
+        
+        try {
+            prep = conn.prepareStatement(sql);
+            
+            prep.setString(1, "Vendido");
+            prep.setInt(2, id);
+            
+            prep.execute();
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar status do produto" + e.getMessage());
+        }
     }
     
     
